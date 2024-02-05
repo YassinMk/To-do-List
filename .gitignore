@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+CRA-cleanUp-JS.sh
+CRA-cleanUp-TS.sh
+```

@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import Stack from "@mui/material/Stack";
+import Switch from "@mui/material/Switch";
+import "./Index.css";
+import { Container, Hidden } from "@mui/material";
+import { useState } from "react";
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
 
 function App() {
+  const [isExpended, setisExpended] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      sx={{ height: "100vh" }}
+    >
+      <Card
+        variant="outlined"
+        sx={{
+          maxWidth: 750,
+          bgcolor: "white",
+          height: "500px",
+          width: "100%",
+          borderRadius: "2%",
+        }}
+      >
+        {/* Card Content Here */}
+      </Card>
+    </Stack>
   );
 }
-
 export default App;
