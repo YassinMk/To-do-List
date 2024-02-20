@@ -5,40 +5,54 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Divider from "@mui/material/Divider";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { styled } from "@mui/material/styles";
-
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 const RedButtonNavigation = styled(BottomNavigationAction)({
-    "&.Mui-selected, &.Mui-selected:hover": {
-      color: "red",
-      backgroundColor: "#ffebee",
-    },
-  });
-  const GreenButtonNavigation = styled(BottomNavigationAction)({
-    "&.Mui-selected, &.Mui-selected:hover": {
-      color: "green",
-      backgroundColor: "#e8f5e9",
-    },
-  });
-  const BlueButtonNavigation = styled(BottomNavigationAction)({
-    "&.Mui-selected, &.Mui-selected:hover": {
-      backgroundColor: "#e3f2fd",
-    },
-  });
-
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "red",
+    backgroundColor: "#ffebee",
+  },
+});
+const GreenButtonNavigation = styled(BottomNavigationAction)({
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "green",
+    backgroundColor: "#e8f5e9",
+  },
+});
+const BlueButtonNavigation = styled(BottomNavigationAction)({
+  "&.Mui-selected, &.Mui-selected:hover": {
+    backgroundColor: "#e3f2fd",
+  },
+});
 
 const NavigationBar = () => {
-    const [value, setValue] = useState(0);
+  const [value, setValue] = useState(4);
+  const navigate = useNavigate();
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+
+    switch (newValue) {
+      case 0:
+        navigate("/incomplete");
+        break;
+      case 2:
+        navigate("/complete");
+        break;
+      case 4:
+        navigate("/");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
-
     <BottomNavigation
       showLabels
       value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      onChange={handleChange}
       p={2}
       mt={2}
       sx={{
@@ -52,12 +66,16 @@ const NavigationBar = () => {
       }}
     >
       <RedButtonNavigation label="Incomplete" icon={<HighlightOffIcon />} />
+
       <Divider orientation="vertical" flexItem />
+
       <GreenButtonNavigation
         label="Complete"
         icon={<PlaylistAddCheckRoundedIcon />}
       />
+
       <Divider orientation="vertical" flexItem />
+
       <BlueButtonNavigation
         label="All Tasks"
         icon={<AssignmentRoundedIcon />}
