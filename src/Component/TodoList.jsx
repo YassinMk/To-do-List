@@ -5,6 +5,8 @@ import AllTaks from "./AllTasks";
 import Layout from "./Layout";
 import IncompleteTask from "./IncompleteTask";
 import TasksCompleted from "./TasksCompleted";
+import { Create } from "@mui/icons-material";
+import CreateTask from "./CreateTask";
 
 const TodoList = () => {
   return (
@@ -12,15 +14,15 @@ const TodoList = () => {
       variant="outlined"
       sx={{
         maxWidth: 600,
-        height: 650,
+        height: 590,
         bgcolor: "white",
         width: "100%",
         padding: ".85em",
         fontFamily: " Rubik, sans-serif",
+        paddingBottom: "3em",
       }}
     >
-      <Stack direction="column" justifyContent="center" alignItems="center">
-
+      <Stack direction="column" justifyContent="center" alignItems="center" >
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<AllTaks />} />
@@ -28,7 +30,6 @@ const TodoList = () => {
             <Route path="/complete" element={<TasksCompleted />} />
           </Route>
         </Routes>
-        
       </Stack>
     </Card>
   );
