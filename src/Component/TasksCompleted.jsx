@@ -3,6 +3,7 @@ const TasksCompleted = () => {
     return ( 
         <>
         <Task />
+    
         </>
         
      );

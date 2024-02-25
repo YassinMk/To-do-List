@@ -9,7 +9,7 @@ const TitleSection = () => {
         p={1.5}
         sx={{ fontFamily: "Rubik,sans-serief" }}
       >
-        My Tasks
+        My Tasks of day
       </Typography>
     </>
   );
