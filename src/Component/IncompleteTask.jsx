@@ -8,18 +8,23 @@ const IncompleteTask = () => {
     <>
       {incompleteTask.length === 0 ? (
         <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height:"50vh",
-         
-        }}
-      >
-        <Typography variant="h6" component="h1" fontFamily={"Rubik, sans-serif"} fontWeight={200}>
-          You have no incomplete tasks! Good Job 👍
-        </Typography>
-      </Box>
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            marginTop: "25%",
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="h1"
+            fontFamily={"Rubik, sans-serif"}
+            fontWeight={200}
+          >
+            You have no incomplete tasks! Good Job 👍
+          </Typography>
+        </Box>
+        
       ) : (
         <p>fdsfdfds</p>
       )}

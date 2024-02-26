@@ -2,8 +2,7 @@ import Divider from "@mui/material/Divider";
 import NavigationBar from "./NavigationBar";
 import TitleSection from "./TitleSection";
 import { Outlet } from "react-router-dom";
-import { Box } from "@mui/system";
-import { Stack } from "@mui/material";
+
 const Layout = () => {
   return (
     <>

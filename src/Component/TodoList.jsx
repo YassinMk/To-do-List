@@ -5,24 +5,28 @@ import AllTaks from "./AllTasks";
 import Layout from "./Layout";
 import IncompleteTask from "./IncompleteTask";
 import TasksCompleted from "./TasksCompleted";
-import { Create } from "@mui/icons-material";
 import CreateTask from "./CreateTask";
+
+const CardStyles = {
+  maxWidth: 605,
+  height: 590,
+  bgcolor: "white",
+  width: "100%",
+  padding: ".85em",
+  fontFamily: " Rubik, sans-serif",
+  paddingBottom:"1em",
+  display: "flex",
+  justifyContent: "space-between",
+  flexDirection: "column",
+}
 
 const TodoList = () => {
   return (
     <Card
       variant="outlined"
-      sx={{
-        maxWidth: 600,
-        height: 590,
-        bgcolor: "white",
-        width: "100%",
-        padding: ".85em",
-        fontFamily: " Rubik, sans-serif",
-        paddingBottom: "3em",
-      }}
+      sx={CardStyles}
     >
-      <Stack direction="column" justifyContent="center" alignItems="center" >
+      <Stack direction="column" justifyContent="center" alignItems="center">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<AllTaks />} />
@@ -31,6 +35,7 @@ const TodoList = () => {
           </Route>
         </Routes>
       </Stack>
+      <CreateTask />
     </Card>
   );
 };

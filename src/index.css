@@ -3,5 +3,6 @@ body {
   font-family: "Rubik", sans-serif !important;
   background-color: black;
   height: 100%;
+  width: 100%;
   overflow: hidden; /* make browser scrollbar disappear */
 }
