@@ -13,10 +13,13 @@ const FabModified = styled(Fab)({
     width: "47px",
     height: "47px",
     border: "3px solid rgb(25, 118, 210)",
-    background: "white"
-  ,"&.Mui-selected, &.Mui-selected:hover": {
+    background: "white",
+    transition:"transform 0.3s ease-in-out",
+  "&.Mui-selected, &.Mui-selected:hover": {
     backgroundColor: "#eeeeee",
-  },
+  },"&:hover": {
+    transform: "scale(1.2)",
+  }
 });
 
 
@@ -55,6 +58,7 @@ const Task = () => {
               <FabModified
                 aria-label="edit"
                 disableRipple
+                
               >
                 <ModeEditOutlineOutlinedIcon
                   color="primary"
@@ -66,6 +70,7 @@ const Task = () => {
                 color="white"
                 aria-label="edit"
                 disableRipple
+                sx={{borderColor:"red"}}
                 
               >
                 <ClearOutlinedIcon sx={{ cursor: "pointer", color: "red" }} />
@@ -74,6 +79,7 @@ const Task = () => {
                 color="white"
                 aria-label="edit"
                 disableRipple
+                sx={{borderColor:"green"}}
               >
                 <CheckIcon
                   sx={{ cursor: "pointer", color: "rgb(16, 152, 104)" }}
