@@ -9,10 +9,16 @@ import styled from "@mui/material/styles/styled";
 import Stack from "@mui/material/Stack";
 
 const FabModified = styled(Fab)({
-  "&.Mui-selected, &.Mui-selected:hover": {
+    float: "Right",
+    width: "47px",
+    height: "47px",
+    border: "3px solid rgb(25, 118, 210)",
+    background: "white"
+  ,"&.Mui-selected, &.Mui-selected:hover": {
     backgroundColor: "#eeeeee",
   },
 });
+
 
 const Task = () => {
   return (
@@ -48,13 +54,7 @@ const Task = () => {
             <Stack spacing={1} direction="row">
               <FabModified
                 aria-label="edit"
-                sx={{
-                  float: "Right",
-                  width: "47px",
-                  height: "47px",
-                  border: "3px solid rgb(25, 118, 210)",
-                  background: "white",
-                }}
+                disableRipple
               >
                 <ModeEditOutlineOutlinedIcon
                   color="primary"
@@ -62,36 +62,24 @@ const Task = () => {
                 />
               </FabModified>
 
-              <Fab
+              <FabModified
                 color="white"
                 aria-label="edit"
-                sx={{
-                  float: "Right",
-                  width: "45px",
-                  height: "45px",
-                  borderColor: "red",
-                  border: "3px solid red",
-                  background: "white",
-                }}
+                disableRipple
+                
               >
                 <ClearOutlinedIcon sx={{ cursor: "pointer", color: "red" }} />
-              </Fab>
-              <Fab
+              </FabModified>
+              <FabModified
                 color="white"
                 aria-label="edit"
-                sx={{
-                  float: "Right",
-                  width: "45px",
-                  height: "45px",
-                  borderColor: "red",
-                  border: "3px solid rgb(16, 152, 104)",
-                  background: "white",
-                }}
+                disableRipple
               >
                 <CheckIcon
                   sx={{ cursor: "pointer", color: "rgb(16, 152, 104)" }}
+
                 />
-              </Fab>
+              </FabModified>
             </Stack>
           </Box>
         </Stack>
