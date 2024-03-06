@@ -11,11 +11,11 @@ const textFieldStyles = {
   width: "87%",
   "& .MuiInputLabel-root": {
     // Target the InputLabel component
-    fontFamily: "Rubik, sans-serif", // Set the font family
+    fontFamily: "Rubik, sans-serif", 
   },
   "& .MuiInputBase-root": {
     // Target the Input component
-    fontFamily: "Rubik, sans-serif", // Set the font family
+    fontFamily: "Rubik, sans-serif", 
   },
 };
 
@@ -42,11 +42,13 @@ const CreateTask = () => {
           />
           <Button
             onClick={handleOpen}
+            disableRipple
             sx={{
               marginRight: ".2em",
               "&:hover": {
-                backgroundColor: "white",
-              },
+                backgroundColor: "transparent",
+                boxShadow: "none"
+              }
             }}
           >
             <AddCircleOutlinedIcon
