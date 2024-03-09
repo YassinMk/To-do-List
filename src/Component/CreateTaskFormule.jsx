@@ -7,8 +7,28 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useSnackbar } from "notistack";
 
-const CreateTaskFormule = ({ open = false, handleClose }) => {
+const Modal = styled(BaseModal)`
+  position: fixed;
+  z-index: 1300;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CreateTaskFormule = ({
+  open = false,
+  handleClose,
+  deleteTask = false,
+}) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariant = (variant) => () => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar(deleteTask ? "Task are deleted with success":"Task is created with succes", { variant,autoHideDuration: 2000 });
+  };
   return (
     <Modal
       aria-labelledby="unstyled-modal-title"
@@ -19,36 +39,66 @@ const CreateTaskFormule = ({ open = false, handleClose }) => {
     >
       <Paper sx={{ width: 500, padding: "1.5em" }} p={2}>
         <Stack spacing={3}>
-          <Typography textAlign={"center"} variant="h5">Add Task</Typography>
-          <TextField
-            id="standard-basic"
-            label="Title of task"
-            variant="standard"
-            sx={textFieldStyles}
-            
-          />
-          <TextField
-            id="standard-basic"
-            label="Description"
-            variant="standard"
-            sx={{
-              ...textFieldStyles,
-              "& .MuiInputBase-root": {
-                // Target the Input component
-                fontFamily: "Rubik, sans-serif", // Set the font family
-              },
-              '& label.Mui-focused': {
-                color: 'rgb(25, 118, 210,0.8)', // Change the color of the label when the TextField is focused
-              },
-              '& .MuiInput-underline:after': {
-                borderBottomColor: 'rgb(25, 118, 210,0.8)', // Change the underline color when the TextField is focused
-              }
-            }}
-            
-          />
+          {deleteTask ? (
+            <Typography variant="h6" fontFamily={"Rubik, sans-serif"}>
+              Are you sure to remove this task?
+            </Typography>
+          ) : (
+            <>
+              <Typography
+                textAlign={"center"}
+                variant="h5"
+                fontFamily={"Rubik, sans-serif"}
+              >
+                Add Task
+              </Typography>
+              <TextField
+                id="standard-basic"
+                label="Title of task"
+                variant="standard"
+                sx={textFieldStyles}
+              />
+              <TextField
+                id="standard-basic"
+                label="Description"
+                variant="standard"
+                sx={{
+                  ...textFieldStyles,
+                  "& .MuiInputBase-root": {
+                    // Target the Input component
+                    fontFamily: "Rubik, sans-serif", // Set the font family
+                  },
+                  "& label.Mui-focused": {
+                    color: "rgb(25, 118, 210,0.8)", // Change the color of the label when the TextField is focused
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: "rgb(25, 118, 210,0.8)", // Change the underline color when the TextField is focused
+                  },
+                }}
+              />
+            </>
+          )}
+
           <Stack flexDirection={"row"} gap={2}>
-            <Button variant="text"sx={{fontFamily:"Rubik, sans-serif"}} >Confirm</Button>
-            <Button variant="text"sx={{fontFamily:"Rubik, sans-serif", }}  color="error" onClick={handleClose}>Cancel</Button>
+            <Button
+              variant="text"
+              sx={{ fontFamily: "Rubik, sans-serif" }}
+              color={deleteTask ? "error" : "primary"}
+              onClick={() => {
+                deleteTask? handleClickVariant("error")():handleClickVariant("success")();
+                handleClose()
+              }}
+            >
+              Confirm
+            </Button>
+            <Button
+              variant="text"
+              sx={{ fontFamily: "Rubik, sans-serif" }}
+              color={deleteTask ? "primary" : "error"}
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
           </Stack>
         </Stack>
       </Paper>
@@ -72,14 +122,6 @@ Backdrop.propTypes = {
   open: PropTypes.bool,
 };
 
-const Modal = styled(BaseModal)`
-  position: fixed;
-  z-index: 1300;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const StyledBackdrop = styled(Backdrop)`
   z-index: -1;
   position: fixed;
@@ -88,13 +130,12 @@ const StyledBackdrop = styled(Backdrop)`
   -webkit-tap-highlight-color: transparent;
 `;
 
-
 const textFieldStyles = {
-  color:"rgb(37, 47, 136)",
+  color: "rgb(37, 47, 136)",
+  fontFamily: "Rubik, sans-serif",
   "& .MuiInputLabel-root": {
-    // Target the InputLabel component
-    fontFamily: "Rubik, sans-serif", // Set the font family
-  }
+    fontFamily: "Rubik, sans-serif",
+  },
 };
 
 export default CreateTaskFormule;

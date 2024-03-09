@@ -65,7 +65,7 @@ const CreateTask = () => {
             />
           </Button>
         </Stack>
-        <CreateTaskFormule open={open} handleClose={handleClose} />
+        <CreateTaskFormule open={open} handleClose={handleClose}  />
       </Box>
        
      

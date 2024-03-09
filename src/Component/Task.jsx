@@ -7,23 +7,30 @@ import { Typography } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import styled from "@mui/material/styles/styled";
 import Stack from "@mui/material/Stack";
+import CreateTaskFormule from "./CreateTaskFormule";
+import { useState } from "react";
 
 const FabModified = styled(Fab)({
-    float: "Right",
-    width: "47px",
-    height: "47px",
-    border: "3px solid rgb(25, 118, 210)",
-    background: "white",
-    transition:"transform 0.3s ease-in-out",
+  float: "Right",
+  width: "47px",
+  height: "47px",
+  border: "3px solid rgb(25, 118, 210)",
+  background: "white",
+  transition: "transform 0.3s ease-in-out",
   "&.Mui-selected, &.Mui-selected:hover": {
     backgroundColor: "#eeeeee",
-  },"&:hover": {
+  },
+  "&:hover": {
     transform: "scale(1.2)",
-  }
+  },
 });
 
-
 const Task = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [deleteTask, setDeleteTask] = useState(false);
+
   return (
     <>
       <Paper
@@ -58,38 +65,45 @@ const Task = () => {
               <FabModified
                 aria-label="edit"
                 disableRipple
-                
+                sx={{ borderColor: "rgb(37, 47, 136)" }}
               >
                 <ModeEditOutlineOutlinedIcon
-                  color="primary"
-                  sx={{ cursor: "pointer" }}
+                  sx={{ cursor: "pointer", color: "rgb(37, 47, 136)" }}
                 />
               </FabModified>
 
               <FabModified
-                color="white"
                 aria-label="edit"
                 disableRipple
-                sx={{borderColor:"red"}}
-                
+                sx={{ borderColor: "red" }}
+                onClick={() => {
+                  handleOpen();
+                  setDeleteTask(true);
+                  
+                }}
               >
-                <ClearOutlinedIcon sx={{ cursor: "pointer", color: "red" }} />
+                <ClearOutlinedIcon sx={{ cursor: "pointer" }} color="error" />
               </FabModified>
               <FabModified
-                color="white"
                 aria-label="edit"
                 disableRipple
-                sx={{borderColor:"green"}}
+                sx={{ borderColor: "green" }}
               >
                 <CheckIcon
                   sx={{ cursor: "pointer", color: "rgb(16, 152, 104)" }}
-
                 />
               </FabModified>
             </Stack>
           </Box>
         </Stack>
+        <CreateTaskFormule
+        open={open}
+        handleClose={handleClose}
+        deleteTask={deleteTask}
+       />
       </Paper>
+     
+     
     </>
   );
 };

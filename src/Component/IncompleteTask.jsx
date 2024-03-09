@@ -21,7 +21,7 @@ const IncompleteTask = () => {
             fontFamily={"Rubik, sans-serif"}
             fontWeight={200}
           >
-            You have no incomplete tasks! Good Job 👍
+            You  complete all the tasks! Good Job 👍
           </Typography>
         </Box>
         
