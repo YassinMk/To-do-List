@@ -14,18 +14,16 @@ const CardStyles = {
   width: "100%",
   padding: ".85em",
   fontFamily: " Rubik, sans-serif",
-  paddingBottom:"1em",
+  paddingBottom: "1em",
   display: "flex",
   justifyContent: "space-between",
   flexDirection: "column",
-}
+  BorderRadius: "10px",
+};
 
 const TodoList = () => {
   return (
-    <Card
-      variant="outlined"
-      sx={CardStyles}
-    >
+    <Card variant="outlined" sx={CardStyles}>
       <Stack direction="column" justifyContent="center" alignItems="center">
         <Routes>
           <Route element={<Layout />}>
