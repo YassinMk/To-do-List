@@ -40,9 +40,14 @@ const CreateTaskFormule = ({
       <Paper sx={{ width: 500, padding: "1.5em" }} p={2}>
         <Stack spacing={3}>
           {deleteTask ? (
+            <>
             <Typography variant="h6" fontFamily={"Rubik, sans-serif"}>
               Are you sure to remove this task?
             </Typography>
+            <Typography variant="p" fontFamily={"Rubik, sans-serif"} marginTop={0}>
+              This action is irreversible !
+            </Typography>
+            </>
           ) : (
             <>
               <Typography
@@ -85,7 +90,7 @@ const CreateTaskFormule = ({
               sx={{ fontFamily: "Rubik, sans-serif" }}
               color={deleteTask ? "error" : "primary"}
               onClick={() => {
-                deleteTask? handleClickVariant("error")():handleClickVariant("success")();
+                deleteTask? handleClickVariant("success")():handleClickVariant("success")();
                 handleClose()
               }}
             >

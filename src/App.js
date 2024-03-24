@@ -2,6 +2,7 @@ import Stack from "@mui/material/Stack";
 import "./Index.css";
 import TodoList from "./Component/TodoList";
 
+
 function App() {
   return (
     <Stack
@@ -11,8 +12,8 @@ function App() {
       sx={{ height: "97vh" }}
     >
       <TodoList />
-      
     </Stack>
+    
   );
 }
 export default App;

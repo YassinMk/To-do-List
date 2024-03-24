@@ -39,6 +39,7 @@ const CreateTask = () => {
             sx={textFieldStyles}
             required
             fullWidth
+            onChange={(e) => {}}
           />
           <Button
             onClick={handleOpen}

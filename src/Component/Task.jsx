@@ -42,6 +42,7 @@ const Task = () => {
           width: "90%",
           bgcolor: "rgb(25, 118, 210)",
           color: "white",
+
           transition: "transform 0.2s", // Smooth transition
           ":hover": {
             transform: "scale(1.02)",
@@ -52,6 +53,7 @@ const Task = () => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          flex={1}
         >
           <Box>
             <Typography variant="h6">fdsfdfds</Typography>
@@ -79,11 +81,11 @@ const Task = () => {
                 onClick={() => {
                   handleOpen();
                   setDeleteTask(true);
-                  
                 }}
               >
                 <ClearOutlinedIcon sx={{ cursor: "pointer" }} color="error" />
               </FabModified>
+
               <FabModified
                 aria-label="edit"
                 disableRipple
@@ -97,13 +99,11 @@ const Task = () => {
           </Box>
         </Stack>
         <CreateTaskFormule
-        open={open}
-        handleClose={handleClose}
-        deleteTask={deleteTask}
-       />
+          open={open}
+          handleClose={handleClose}
+          deleteTask={deleteTask}
+        />
       </Paper>
-     
-     
     </>
   );
 };
