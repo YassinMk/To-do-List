@@ -5,22 +5,23 @@ import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import CreateTaskFormule from "./CreateTaskFormule";
+import CreateTaskFormule from "./PopUp/CreateTaskFormule";
 
 const textFieldStyles = {
   width: "87%",
   "& .MuiInputLabel-root": {
     // Target the InputLabel component
-    fontFamily: "Rubik, sans-serif", 
+    fontFamily: "Rubik, sans-serif",
   },
   "& .MuiInputBase-root": {
     // Target the Input component
-    fontFamily: "Rubik, sans-serif", 
+    fontFamily: "Rubik, sans-serif",
   },
 };
 
 const CreateTask = () => {
   const [open, setOpen] = useState(false);
+  const [taskTitle, setTaskTitle] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
@@ -37,9 +38,12 @@ const CreateTask = () => {
             label="Add task"
             variant="outlined"
             sx={textFieldStyles}
+            value={taskTitle}
             required
             fullWidth
-            onChange={(e) => {}}
+            onChange={(e) => {
+              setTaskTitle(e.target.value);
+            }}
           />
           <Button
             onClick={handleOpen}
@@ -48,8 +52,8 @@ const CreateTask = () => {
               marginRight: ".2em",
               "&:hover": {
                 backgroundColor: "transparent",
-                boxShadow: "none"
-              }
+                boxShadow: "none",
+              },
             }}
           >
             <AddCircleOutlinedIcon
@@ -66,17 +70,14 @@ const CreateTask = () => {
             />
           </Button>
         </Stack>
-        <CreateTaskFormule open={open} handleClose={handleClose}  />
+        <CreateTaskFormule
+          open={open}
+          handleClose={handleClose}
+          taskTitle={taskTitle}
+        />
       </Box>
-       
-     
     </>
   );
 };
-
-
-
-
-
 
 export default CreateTask;
