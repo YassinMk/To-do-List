@@ -7,8 +7,122 @@ import { Typography } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import styled from "@mui/material/styles/styled";
 import Stack from "@mui/material/Stack";
-import CreateTaskFormule from "./CreateTaskFormule";
 import { useState } from "react";
+import DeleteTask from "./PopUp/DeleteTask";
+
+const Task = ({ task, completed }) => {
+  
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const { title, description } = task;
+  return (
+    <>
+      <Paper
+        variant="elevation"
+        elevation={4}
+        sx={{
+          marginTop: 2,
+          padding: 2,
+          width: "90%",
+          bgcolor: "rgb(25, 118, 210)",
+          color: "white",
+          transition: "transform 0.2s", // Smooth transition
+          ":hover": {
+            transform: "scale(1.02)",
+          },
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          flex={1}
+        >
+          <Box>
+            <Typography variant="h6">{title}</Typography>
+            <Typography variant="p" sx={{ fontWeight: "300" }}>
+              {description}
+            </Typography>
+          </Box>
+
+          <Box>
+            <Stack spacing={1} direction="row">
+              <FabModified
+                aria-label="edit"
+                disableRipple
+                sx={{
+                  borderColor: "rgb(37, 47, 136)",
+                  "&:hover": {
+                    backgroundColor: "rgb(37, 47, 136)",
+                    borderColor: "white",
+                  },
+                }}
+              >
+                <ModeEditOutlineOutlinedIcon
+                  sx={{
+                    cursor: "pointer",
+                    color: "rgb(37, 47, 136)",
+                    "&:hover": { color: "white" },
+                  }}
+                />
+              </FabModified>
+
+              <FabModified
+                aria-label="delete"
+                disableRipple
+                sx={{
+                  borderColor: "red",
+                  "&:hover": {
+                    backgroundColor: "red",
+                    borderColor: "white",
+                  },
+                }}
+                onClick={() => {
+                  handleOpen();
+                }}
+              >
+                <ClearOutlinedIcon
+                  sx={{ cursor: "pointer", "&:hover": { color: "white" } }}
+                  color="error"
+                />
+              </FabModified>
+
+              <FabModified
+                aria-label="complete"
+                disableRipple
+                sx={{
+                  borderColor: completed ? "white" : "green",
+                  backgroundColor: completed ? "green" : "",
+                  "&:hover": {
+                    backgroundColor: "green",
+                    borderColor: "white",
+                  },
+                }}
+              >
+                <CheckIcon
+                  sx={{
+                    cursor: "pointer",
+                    color: completed ? "white" : "rgb(16, 152, 104)",
+                    ...(completed
+                      ? {}
+                      : {
+                          "&:hover": {
+                            color: "white",
+                          },
+                        }),
+                  }}
+                />
+              </FabModified>
+            </Stack>
+          </Box>
+        </Stack>
+        <DeleteTask open={open} handleClose={handleClose} />
+      </Paper>
+    </>
+  );
+};
 
 const FabModified = styled(Fab)({
   float: "Right",
@@ -24,88 +138,5 @@ const FabModified = styled(Fab)({
     transform: "scale(1.2)",
   },
 });
-
-const Task = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [deleteTask, setDeleteTask] = useState(false);
-
-  return (
-    <>
-      <Paper
-        variant="elevation"
-        elevation={4}
-        sx={{
-          marginTop: 2,
-          padding: 2,
-          width: "90%",
-          bgcolor: "rgb(25, 118, 210)",
-          color: "white",
-
-          transition: "transform 0.2s", // Smooth transition
-          ":hover": {
-            transform: "scale(1.02)",
-          },
-        }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          flex={1}
-        >
-          <Box>
-            <Typography variant="h6">fdsfdfds</Typography>
-            <Typography variant="p" sx={{ fontWeight: "300" }}>
-              ffdsfsdjklfdsj
-            </Typography>
-          </Box>
-
-          <Box>
-            <Stack spacing={1} direction="row">
-              <FabModified
-                aria-label="edit"
-                disableRipple
-                sx={{ borderColor: "rgb(37, 47, 136)" }}
-              >
-                <ModeEditOutlineOutlinedIcon
-                  sx={{ cursor: "pointer", color: "rgb(37, 47, 136)" }}
-                />
-              </FabModified>
-
-              <FabModified
-                aria-label="edit"
-                disableRipple
-                sx={{ borderColor: "red" }}
-                onClick={() => {
-                  handleOpen();
-                  setDeleteTask(true);
-                }}
-              >
-                <ClearOutlinedIcon sx={{ cursor: "pointer" }} color="error" />
-              </FabModified>
-
-              <FabModified
-                aria-label="edit"
-                disableRipple
-                sx={{ borderColor: "green" }}
-              >
-                <CheckIcon
-                  sx={{ cursor: "pointer", color: "rgb(16, 152, 104)" }}
-                />
-              </FabModified>
-            </Stack>
-          </Box>
-        </Stack>
-        <CreateTaskFormule
-          open={open}
-          handleClose={handleClose}
-          deleteTask={deleteTask}
-        />
-      </Paper>
-    </>
-  );
-};
 
 export default Task;
