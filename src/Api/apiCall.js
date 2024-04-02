@@ -11,8 +11,26 @@ class apiCall {
   getComplete() {
     return this.baseUrl + "ListTask?completed=1";
   }
-  delete(endpoint) {
-    return this.baseUrl + ""; // Corrected here
+  async delete(endpoint) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+  
+      let res = null;
+      if (response.headers.get('content-type').includes('application/json')) {
+        res = await response.json();
+      }
+  
+      return { err: null };
+    } catch (error) {
+      console.log(error.message);
+      return {  err: error.message };
+    }
   }
 }
 const api = new apiCall();
