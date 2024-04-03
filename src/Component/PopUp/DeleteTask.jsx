@@ -3,14 +3,40 @@ import { useSnackbar } from "notistack";
 import { Modal as BaseModal } from "@mui/base/Modal";
 import { Paper, Typography, Stack, Button } from "@mui/material";
 import { styled } from "@mui/system";
-const DeleteTask = ({ open = false, handleClose }) => {
+import api from "../../Api/apiCall";
+import { useDeleteTask } from "../../Context/TasksContext";
+
+const DeleteTask = ({ open = false, handleClose, taskId }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { deleteTask } = useDeleteTask();
+
+  const handleDelete = async () => {
+    const { err } = await api.delete(
+      `http://localhost:8000/ListTask/${taskId}`
+    );
+    if (err !== null) {
+      handleClickVariant("error")();
+      handleClose();
+    } else {
+      deleteTask(taskId);
+      handleClickVariant("success")();
+      handleClose();
+    }
+  };
 
   const handleClickVariant = (variant) => () => {
-    enqueueSnackbar("Task is deleted with success", {
-      variant,
-      autoHideDuration: 2000,
-    });
+    // variant could be success, error, warning, info, or default
+    if (variant === "error") {
+      enqueueSnackbar("error during  delete Task!", {
+        variant,
+        autoHideDuration: 3000,
+      });
+    } else {
+      enqueueSnackbar("Task are deleted with success", {
+        variant,
+        autoHideDuration: 3000,
+      });
+    }
   };
 
   const Modal = styled(BaseModal)`
@@ -31,6 +57,7 @@ const DeleteTask = ({ open = false, handleClose }) => {
           <Typography
             variant="p"
             fontFamily={"Rubik, sans-serif"}
+            fontWeight={300}
             marginTop={0}
           >
             This action is irreversible !
@@ -39,12 +66,19 @@ const DeleteTask = ({ open = false, handleClose }) => {
             <Button
               variant="text"
               color="error"
-              onClick={handleClickVariant("success")}
+              onClick={() => {
+                handleDelete();
+              }}
               sx={{ fontFamily: "Rubik, sans-serif" }}
             >
               Confirm
             </Button>
-            <Button variant="text" color="primary" onClick={handleClose} sx={{ fontFamily: "Rubik, sans-serif" }}>
+            <Button
+              variant="text"
+              color="primary"
+              onClick={handleClose}
+              sx={{ fontFamily: "Rubik, sans-serif" }}
+            >
               Cancel
             </Button>
           </Stack>
