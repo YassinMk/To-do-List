@@ -5,6 +5,7 @@ import Task from "./Task";
 import useFetch from "../FetchHook/useFetch";
 import api from "../Api/apiCall";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useDeleteTask } from "../Context/TasksContext";
 
 const scrollbarStyle = {
   width: "100%",
@@ -30,8 +31,15 @@ const scrollbarStyle = {
 };
 
 const IncompleteTask = () => {
-  const { data: incompleteTasks, isPending, error } = useFetch(api.getNotComplete());
+  const { data: tasks, isPending, error } = useFetch(api.getNotComplete());
+  const { deletedTaskId } = useDeleteTask();
+  let incompleteTasks = [];
 
+  if (deletedTaskId && tasks) {
+    incompleteTasks = tasks.filter((task) => task.id !== deletedTaskId);
+  }else{
+    incompleteTasks=tasks;
+  }
   return (
     <>
       {incompleteTasks && incompleteTasks.length === 0 ? (

@@ -4,6 +4,8 @@ import useFetch from "../FetchHook/useFetch";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Typography } from "@mui/material";
 import api from "../Api/apiCall";
+import { useDeleteTask } from "../Context/TasksContext";
+import DeleteTask from "./PopUp/DeleteTask";
 
 const scrollbarStyle = {
   width: "100%",
@@ -29,11 +31,32 @@ const scrollbarStyle = {
 };
 
 const AllTaks = () => {
-  const { data: tasks, isPending, error } = useFetch(api.getAll());
-  console.log(tasks);
+  const { deletedTaskId } = useDeleteTask();
+  const {
+    data: tasks,
+    isPending,
+    error,
+  } = useFetch(api.getAll(), deletedTaskId);
+  let filteredTasks = [];
+
+  if (deletedTaskId && tasks) {
+    filteredTasks = tasks.filter((task) => task.id !== deletedTaskId);
+  } else {
+    filteredTasks = tasks;
+  }
+
   return (
     <Box sx={scrollbarStyle}>
-      {isPending && <CircularProgress sx={{height:"25%"}} />}
+      {isPending && (
+        <CircularProgress
+          sx={{
+            height: "25%",
+            marginTop: "25%",
+            marginLeft: "45%",
+            color: "rgb(25, 118, 210)",
+          }}
+        />
+      )}
       {error && (
         <Typography
           align="center"
@@ -43,7 +66,10 @@ const AllTaks = () => {
           {error}
         </Typography>
       )}
-      {tasks && tasks.map((task) => <Task key={task.id} task={task} completed={task.completed} />)}
+      {filteredTasks &&
+        filteredTasks.map((task) => (
+          <Task key={task.id} task={task} completed={task.completed} />
+        ))}
     </Box>
   );
 };

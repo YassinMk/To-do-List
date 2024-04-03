@@ -4,11 +4,19 @@ import useFetch from "../FetchHook/useFetch";
 import api from "../Api/apiCall";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Typography } from "@mui/material";
+import { useDeleteTask } from "../Context/TasksContext";
 
 
 const TasksCompleted = () => {
-  const { data: tasksCompleted, isPending, error } = useFetch(api.getComplete());
+  const { data: tasks, isPending, error } = useFetch(api.getComplete());
+  const { deletedTaskId } = useDeleteTask();
 
+  let tasksCompleted = [];
+  if (deletedTaskId && tasks) {
+    tasksCompleted = tasks.filter((task) => task.id !== deletedTaskId);
+  }else{
+    tasksCompleted=tasks;
+  }
     return ( 
         <Box
         sx={scrollbarStyle}
