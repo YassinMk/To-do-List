@@ -118,7 +118,7 @@ const Task = ({ task, completed }) => {
             </Stack>
           </Box>
         </Stack>
-        <DeleteTask open={open} handleClose={handleClose} />
+        <DeleteTask open={open} handleClose={handleClose}  taskId={task.id} />
       </Paper>
     </>
   );
