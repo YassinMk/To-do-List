@@ -6,21 +6,7 @@ import Layout from "./Layout";
 import IncompleteTask from "./IncompleteTask";
 import TasksCompleted from "./TasksCompleted";
 import CreateTask from "./CreateTask";
-
-
-const CardStyles = {
-  maxWidth: 605,
-  height: 590,
-  bgcolor: "white",
-  width: "100%",
-  padding: ".85em",
-  fontFamily: " Rubik, sans-serif",
-  paddingBottom: "1em",
-  display: "flex",
-  justifyContent: "space-between",
-  flexDirection: "column",
-  borderRadius: "17px",
-};
+import { CardStyles } from "./style";
 
 const TodoList = () => {
   return (

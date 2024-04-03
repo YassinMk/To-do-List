@@ -5,30 +5,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Typography } from "@mui/material";
 import api from "../Api/apiCall";
 import { useDeleteTask } from "../Context/TasksContext";
-import DeleteTask from "./PopUp/DeleteTask";
+import { Alert } from "@mui/material";
+import {scrollbarStyle} from "./style.js";
 
-const scrollbarStyle = {
-  width: "100%",
-  justifyContent: "center",
-  alignItems: "center",
-  paddingLeft: "2em",
-  overflowY: "auto",
-  height: "350px",
-  marginTop: ".5em",
-  "&::-webkit-scrollbar": {
-    width: "8px",
-  },
-  "&::-webkit-scrollbar-track": {
-    background: "#f1f1f1",
-  },
-  "&::-webkit-scrollbar-thumb": {
-    background: "#7a9efa",
-    borderRadius: "5px",
-  },
-  "&::-webkit-scrollbar-thumb:hover": {
-    background: "#7b9efb",
-  },
-};
+
 
 const AllTaks = () => {
   const { deletedTaskId } = useDeleteTask();
@@ -58,13 +38,12 @@ const AllTaks = () => {
         />
       )}
       {error && (
-        <Typography
-          align="center"
-          variant="h5"
-          sx={{ fontFamily: "'Rubik', sans-serif", marginTop: "25%" }}
-        >
-          {error}
-        </Typography>
+          <Alert
+            sx={{ width: "65%", marginTop: "20%", marginLeft: "5em" }}
+            severity="error"
+          >
+            {error}
+          </Alert>
       )}
       {filteredTasks &&
         filteredTasks.map((task) => (
