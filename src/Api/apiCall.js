@@ -33,7 +33,7 @@ class apiCall {
     }
   }
 
-  async updateTask(endpoint,isCompleted){
+  async toggleTaskCompletion(endpoint,isCompleted){
     try{
       const resonse = await fetch(`${this.baseUrl}ListTask/${endpoint}`, {
         method:'PATCH',
@@ -69,6 +69,28 @@ class apiCall {
       return {err:err.message}
     }
   }
-}
+  async updateTaskDetails(endpoint, newTitle, newDescription){
+    try{
+      const response = await fetch(`${this.baseUrl}ListTask/${endpoint}`, {
+        method:'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: newTitle, description: newDescription }) 
+      });
+      if(!response.ok){
+        throw new Error ('Failed to update task details');
+      }else{
+        const data = await response.json();
+        return {err: null, data};
+      }
+      } catch (error) {
+        console.log(error)
+        return {err: error.message};
+      }
+      
+    }
+  }
+
 const api = new apiCall();
 export default api;

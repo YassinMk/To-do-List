@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import DeleteTask from "./PopUp/DeleteTask";
 import api from "../Api/apiCall";
+import ModifiedTaskFormule from "./PopUp/ModifiedTaskFormule";
 
 
 
@@ -19,9 +20,10 @@ const Task = ({ task }) => {
   const handleClose = () => setOpen(false);
   const { id, title, description, completed } = task;
   const [iscompleted, setIsCompleted] = useState(completed);
+  const [isComponentModified, setIsComponentModified] = useState(false);
 
   const handleComplete = async () => {
-    const { err } = await api.updateTask(id, completed);
+    const { err } = await api.toggleTaskCompletion(id, completed);
     if (err === null) {
       setIsCompleted(!completed);
     }
@@ -68,6 +70,7 @@ const Task = ({ task }) => {
                     borderColor: "white",
                   },
                 }}
+                onClick={()=>{setIsComponentModified(true)}}
               >
                 <ModeEditOutlineOutlinedIcon
                   sx={{
@@ -129,6 +132,7 @@ const Task = ({ task }) => {
           </Box>
         </Stack>
         <DeleteTask open={open} handleClose={handleClose} taskId={task.id} />
+        <ModifiedTaskFormule open={isComponentModified} handleClose={()=>{setIsComponentModified(false)}} task={task} />          
       </Paper>
     </>
   );
