@@ -9,14 +9,23 @@ import styled from "@mui/material/styles/styled";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import DeleteTask from "./PopUp/DeleteTask";
+import api from "../Api/apiCall";
 
-const Task = ({ task, completed }) => {
-  
 
+
+const Task = ({ task }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { title, description } = task;
+  const { id, title, description, completed } = task;
+  const [iscompleted, setIsCompleted] = useState(completed);
+
+  const handleComplete = async () => {
+    const { err } = await api.updateTask(id, completed);
+    if (err === null) {
+      setIsCompleted(!completed);
+    }
+  };
   return (
     <>
       <Paper
@@ -93,19 +102,20 @@ const Task = ({ task, completed }) => {
                 aria-label="complete"
                 disableRipple
                 sx={{
-                  borderColor: completed ? "white" : "green",
-                  backgroundColor: completed ? "green" : "",
+                  borderColor: iscompleted ? "white" : "green",
+                  backgroundColor: iscompleted ? "green" : "",
                   "&:hover": {
                     backgroundColor: "green",
                     borderColor: "white",
                   },
                 }}
+                onClick={handleComplete}
               >
                 <CheckIcon
                   sx={{
                     cursor: "pointer",
-                    color: completed ? "white" : "rgb(16, 152, 104)",
-                    ...(completed
+                    color: iscompleted ? "white" : "rgb(16, 152, 104)",
+                    ...(iscompleted
                       ? {}
                       : {
                           "&:hover": {
@@ -118,7 +128,7 @@ const Task = ({ task, completed }) => {
             </Stack>
           </Box>
         </Stack>
-        <DeleteTask open={open} handleClose={handleClose}  taskId={task.id} />
+        <DeleteTask open={open} handleClose={handleClose} taskId={task.id} />
       </Paper>
     </>
   );

@@ -9,6 +9,8 @@ import { Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
 import { textFieldStyles } from "../style.js";
+import { useAddTask } from "../../Context/TasksContext";
+import api from "../../Api/apiCall";
 
 const Modal = styled(BaseModal)`
   position: fixed;
@@ -19,14 +21,40 @@ const Modal = styled(BaseModal)`
   justify-content: center;
 `;
 
-const CreateTaskFormule = ({ open = false, handleClose, taskTitle = "" }) => {
+const CreateTaskFormule = ({ open = false, handleClose, newtask , setNewTask }) => {
+  const {addTask} = useAddTask();
   const { enqueueSnackbar } = useSnackbar();
 
+  const handleCreateTask = async (e,newtask) => {
+    e.preventDefault();
+    const {err} = await api.addTask(newtask);
+
+    if(err !== null){
+      handleClickVariant("error")();
+      handleClose();
+    }else{
+      addTask(newtask);
+      handleClickVariant("success")();
+      handleClose();
+    }
+  }
+
+ 
+
+ 
   const handleClickVariant = (variant) => () => {
-    enqueueSnackbar("Task is created with success", {
-      variant,
-      autoHideDuration: 2000,
-    });
+    // variant could be success, error, warning, info, or default
+    if (variant === "error") {
+      enqueueSnackbar("error creating Task!", {
+        variant,
+        autoHideDuration: 3000,
+      });
+    } else {
+      enqueueSnackbar("Task are creating with success ", {
+        variant,
+        autoHideDuration: 3000,
+      });
+    }
   };
 
   return (
@@ -51,7 +79,8 @@ const CreateTaskFormule = ({ open = false, handleClose, taskTitle = "" }) => {
             label="Title of task"
             variant="standard"
             fontFamily={"Rubik, sans-serif"}
-            value={taskTitle}
+            value={newtask.title}
+            onChange={(e) => setNewTask({...newtask,title:e.target.value})}
           />
           <TextField
             id="standard-basic"
@@ -70,15 +99,16 @@ const CreateTaskFormule = ({ open = false, handleClose, taskTitle = "" }) => {
                 borderBottomColor: "rgb(25, 118, 210,0.8)", // Change the underline color when the TextField is focused
               },
             }}
+            value={newtask.description}
+            onChange={(e) => setNewTask({...newtask,description:e.target.value})}
           />
           <Stack flexDirection={"row"} gap={2}>
             <Button
               variant="text"
               color="primary"
               sx={{ fontFamily: "Rubik, sans-serif" }}
-              onClick={() => {
-                handleClickVariant("success")();
-                handleClose();
+              onClick={(e) => {
+                handleCreateTask(e,newtask);
               }}
             >
               Confirm

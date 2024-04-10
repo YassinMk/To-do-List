@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-const useFetch = (url,deletedTaskId) => {
+const useFetch = (url,deletedTaskId,newTask) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -31,7 +31,7 @@ const useFetch = (url,deletedTaskId) => {
     return () => {
       controller.abort();
     };
-  }, [url, deletedTaskId]);
+  }, [url, deletedTaskId,newTask]);
 
   return { data, isPending, error };
 };

@@ -21,9 +21,9 @@ const textFieldStyles = {
 
 const CreateTask = () => {
   const [open, setOpen] = useState(false);
-  const [taskTitle, setTaskTitle] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [newtask,setNewTask] = useState({title:"", description:"",completed:false});
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -38,11 +38,11 @@ const CreateTask = () => {
             label="Add task"
             variant="outlined"
             sx={textFieldStyles}
-            value={taskTitle}
+            value={newtask.title}
             required
             fullWidth
             onChange={(e) => {
-              setTaskTitle(e.target.value);
+              setNewTask({ ...newtask, title: e.target.value });
             }}
           />
           <Button
@@ -73,7 +73,8 @@ const CreateTask = () => {
         <CreateTaskFormule
           open={open}
           handleClose={handleClose}
-          taskTitle={taskTitle}
+          newtask={newtask}
+          setNewTask={setNewTask}
         />
       </Box>
     </>

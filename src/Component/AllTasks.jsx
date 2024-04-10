@@ -2,21 +2,26 @@ import Task from "./Task";
 import { Box } from "@mui/system";
 import useFetch from "../FetchHook/useFetch";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Typography } from "@mui/material";
 import api from "../Api/apiCall";
-import { useDeleteTask } from "../Context/TasksContext";
+import { useAddTask, useDeleteTask} from "../Context/TasksContext";
 import { Alert } from "@mui/material";
 import {scrollbarStyle} from "./style.js";
+import { Collapse } from "@mui/material";
+
 
 
 
 const AllTaks = () => {
   const { deletedTaskId } = useDeleteTask();
+  const {task} = useAddTask();
+
+  console.log(task);
+
   const {
     data: tasks,
     isPending,
     error,
-  } = useFetch(api.getAll(), deletedTaskId);
+  } = useFetch(api.getAll(), deletedTaskId,task);
   let filteredTasks = [];
 
   if (deletedTaskId && tasks) {
@@ -47,7 +52,9 @@ const AllTaks = () => {
       )}
       {filteredTasks &&
         filteredTasks.map((task) => (
-          <Task key={task.id} task={task} completed={task.completed} />
+          <Collapse in={task.id !== deletedTaskId} key={task.id}>
+          <Task key={task.id} task={task}  />
+          </Collapse>
         ))}
     </Box>
   );

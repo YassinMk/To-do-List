@@ -4,7 +4,8 @@ import { Modal as BaseModal } from "@mui/base/Modal";
 import { Paper, Typography, Stack, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import api from "../../Api/apiCall";
-import { useDeleteTask } from "../../Context/TasksContext";
+import { useAddTask, useDeleteTask } from "../../Context/TasksContext";
+import { Alert } from "@mui/material";
 
 const DeleteTask = ({ open = false, handleClose, taskId }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -54,14 +55,7 @@ const DeleteTask = ({ open = false, handleClose, taskId }) => {
           <Typography variant="h6" fontFamily={"Rubik, sans-serif"}>
             Are you sure to remove this task?
           </Typography>
-          <Typography
-            variant="p"
-            fontFamily={"Rubik, sans-serif"}
-            fontWeight={300}
-            marginTop={0}
-          >
-            This action is irreversible !
-          </Typography>
+          <Alert severity="warning">this Action is irreversible</Alert>
           <Stack flexDirection={"row"} gap={2}>
             <Button
               variant="text"
