@@ -1,0 +1,16 @@
+FROM node:18
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Install json-server globally
+RUN npm install -g json-server
+
+# Copy db.json to the working directory
+COPY ./data/db.json ./
+
+# Make port 3001 available outside the container
+EXPOSE 8000
+
+# Start the JSON server
+CMD ["npx","json-server", "./db.json", "--port", "8000"]

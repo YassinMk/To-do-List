@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./build:/app/build
+  json-server:
+    build:
+      context: .
+      dockerfile: dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - /app/node_modules
